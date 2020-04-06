@@ -1,19 +1,27 @@
+import sys
+n = int(sys.stdin.readline())
+lst = []
+cnt = {}
 
-def hanoi(num, start, end):
-    mid = 6 - start - end
-
-    if num == 1:
-        print(start, end)
-    else:
-        hanoi(num-1, start, mid)
-        print(start, end)
-        hanoi(num-1, mid, end)
-
-n = int(input())
-
-cnt = 0
 for i in range(n):
-    cnt = cnt*2 + 1
-print(cnt)
+    num = int(sys.stdin.readline())
+    lst.append(num)
+    if num in cnt:
+        cnt[num] += 1
+    else:
+        cnt[num] = 1
+    
+lst.sort()
+cnt = sorted(cnt.items(), key = lambda x: (-x[1], x[0]))
 
-hanoi(n, 1, 3)
+print(round(sum(lst)/n))
+print(lst[n//2])
+
+if len(cnt) == 1:
+    print(cnt[0][0])
+elif cnt[0][1] == cnt[1][1]:
+    print(cnt[1][0])
+else:
+    print(cnt[0][0])
+    
+print(lst[-1] - lst[0])
